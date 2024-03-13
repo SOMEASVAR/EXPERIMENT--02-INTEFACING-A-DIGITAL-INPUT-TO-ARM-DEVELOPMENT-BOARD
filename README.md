@@ -1,7 +1,11 @@
-# EXPERIMENT--02-INTEFACING-A-DIGITAL-INPUT-TO-ARM-DEVELOPMENT-BOARD
-## Aim: To Interface a Digital Input  (userpush button  ) to ARM   development board and write a  program to obtain  the data and flash the led  
-## Components required: STM32 CUBE IDE, ARM IOT development board,  STM programmer tool.
-## Theory 
+# EXPERIMENT:02 INTEFACING A DIGITAL INPUT TO ARM DEVELOPMENT BOARD
+## Aim: 
+To Interface a Digital Input  (userpush button  ) to ARM   development board and write a  program to obtain  the data and flash the led  
+## Components required:
+```
+STM32 CUBE IDE, ARM IOT development board,  STM programmer tool.
+```
+## Theory:
 The full form of an ARM is an advanced reduced instruction set computer (RISC) machine, and it is a 32-bit processor architecture expanded by ARM holdings. The applications of an ARM processor include several microcontrollers as well as processors. The architecture of an ARM processor was licensed by many corporations for designing ARM processor-based SoC products and CPUs. This allows the corporations to manufacture their products using ARM architecture. Likewise, all main semiconductor companies will make ARM-based SOCs such as Samsung, Atmel, TI etc.
 
  
@@ -51,12 +55,52 @@ The full form of an ARM is an advanced reduced instruction set computer (RISC) m
 
 
 ## STM 32 CUBE PROGRAM :
+```
+#include "main.h"
+#include "stdbool.h"
+bool pushbutton;
+
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+
+int main(void)
+{
+  
+  HAL_Init();
+
+  SystemClock_Config();
+
+  MX_GPIO_Init();
+
+  while (1)
+  {
+    pushbutton=HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_13);
+    if(pushbutton==0)
+    {
+    	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+    	HAL_Delay(500);
+    	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+    	HAL_Delay(2000);
+    }
+    else
+    {
+    	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+    	HAL_Delay(2000);
+    }
+  }
+}
+```
 
 
 
 ## Output  :
+## LED OFF:
+![OFF](https://github.com/SOMEASVAR/EXPERIMENT--02-INTEFACING-A-DIGITAL-INPUT-TO-ARM-DEVELOPMENT-BOARD/assets/93434149/7889e160-ed0e-4f15-8cae-63a97f689eb5)
+
+## LED ON:
  
- 
+ ![ON](https://github.com/SOMEASVAR/EXPERIMENT--02-INTEFACING-A-DIGITAL-INPUT-TO-ARM-DEVELOPMENT-BOARD/assets/93434149/a319eeb2-e2dd-4517-bedd-7875490d5113)
+
  
  
 ## Result :
